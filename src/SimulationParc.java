@@ -3,30 +3,37 @@ import java.util.Random;
 public class SimulationParc {
 
     static final int maxClients = 10;
-    static final int nombreBilletAmettre = 10;
-    static final int billetDispo= 15;
+    static final int nombreBilletAmettre = 100;
+    int billetDispo= 20;
+    static final  int billetRandom = 8;
 
     private Client[] clients = new Client[maxClients];
     private int nbClients = 0;
+    private Navette[] navettes = new Navette[2];
+    private int nbrNavette = 0;
 
     Billeterie billeterie = new Billeterie(billetDispo);
 
+    Attraction attraction = new Attraction();
+
     private  boolean nouveauClient() {
 
-        if(nbClients == maxClients) {
-            System.out.println("Le nombre maximum de clients est"
-                    + " atteint.");
-            return false;
-        }
-
         Random random = new Random();
-        int i = random.nextInt(billetDispo);
+        int i = 1+ random.nextInt(billetRandom);
+        System.out.println(i);
 
-        clients[nbClients] = new Client(i, billeterie);
+
+        clients[nbClients] = new Client(i, billeterie, attraction);
         nbClients++;
 
         return true;
 
+    }
+
+    private void nouvelleNavette(){
+
+        navettes[nbrNavette] = new Navette(attraction);
+        nbrNavette++;
     }
 
     SimulationParc() {
@@ -43,8 +50,8 @@ public class SimulationParc {
             clients[i].start();
         }
 
-        System.out.println("clients.length: " + clients.length);
-        System.out.println("nbClients: " + nbClients);
+//        System.out.println("clients.length: " + clients.length);
+//       System.out.println("nbClients: " + nbClients);
 
         /* Instanciation du Responsable billeterie */
         ResponsableBilleterie responsableBilleterie = new ResponsableBilleterie(nombreBilletAmettre, billeterie);
@@ -52,6 +59,16 @@ public class SimulationParc {
         responsableBilleterie.start();
 
 
+        for(i= 0; i<2; i++){
+
+            nouvelleNavette();
+        }
+
+        for(i= 0;i<2;i++){
+
+            navettes[i].setDaemon(true);
+            navettes[i].start();
+        }
 
 
         /* ... */

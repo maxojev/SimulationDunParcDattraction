@@ -10,15 +10,20 @@ public class ResponsableBilleterie extends Thread{
     }
 
     public void run(){
-        while (!billeterie.isPrevenirResponsable()){
+
+        while (true){
+
+            System.out.println("tour");
+
             try {
-                billeterie.wait();
+
+                billeterie.traintementResponsableBillet(nombreBilletAmettre);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
         }
 
-        billeterie.addBillets(nombreBilletAmettre);
     }
 
 
