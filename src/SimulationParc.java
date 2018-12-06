@@ -3,9 +3,9 @@ import java.util.Random;
 public class SimulationParc {
 
     static final int maxClients = 10;
-    static final int nombreBilletAmettre = 100;
+    static final int nombreBilletAmettre = 10;
     int billetDispo= 20;
-    static final  int billetRandom = 8;
+    static final  int billetRandom = 3;
 
     private Client[] clients = new Client[maxClients];
     private int nbClients = 0;

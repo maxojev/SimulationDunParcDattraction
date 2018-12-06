@@ -3,10 +3,13 @@ public class Navette extends Thread {
     Attraction attraction;
 
     private int dureeTrajet;
+    private int dureeAttenteQuai;
+
 
     public Navette(Attraction attraction){
         this.attraction = attraction;
-        this.dureeTrajet = 150;
+        this.dureeTrajet = 200;
+        this.dureeAttenteQuai = 200;
     }
 
     @Override
@@ -14,12 +17,16 @@ public class Navette extends Thread {
 
         while (true) {
 
-            attraction.TraitementNavette();
-
             try {
-                System.out.println("je suis en traversé");
+                attraction.GareNavette();
+
+                Thread.sleep(dureeAttenteQuai);
+
+                System.out.println("methode2");
+
+                attraction.departNavette();
+
                 Thread.sleep(dureeTrajet);
-                System.out.println("Trajet terminé");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

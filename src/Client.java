@@ -15,17 +15,15 @@ public class Client extends Thread{
         try {
             billeterie.acheterBillet(nbreDeBilletAAcheter);
 
-            System.out.println("je vais sur le quai1");
+            System.out.println("je vais sur le quai");
+
             attraction.traintementClient();
 
-            System.out.println("je suis à la première attraction1");
-            Thread.sleep(100);
+            Thread.sleep(200);
 
-            System.out.println("je vais sur le quai2");
             attraction.traintementClient();
 
-            System.out.println("je suis à la première attraction2");
-            Thread.sleep(100);
+            Thread.sleep(200);
 
         } catch (InterruptedException e) {
             e.printStackTrace();

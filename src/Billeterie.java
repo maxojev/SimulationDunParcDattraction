@@ -39,6 +39,7 @@ public class Billeterie {
 
             System.out.println("wait Respo");
             wait();
+            System.out.println("respo reveillé");
         }
 
         nombreDeBillet += billetAAjouter;

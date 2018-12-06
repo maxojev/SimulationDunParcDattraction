@@ -1,44 +1,49 @@
 public class Attraction {
 
-        private int dureeAttenteQuai;
+
         private int nombreDePlaceDispoNavette;
-        private boolean parti;
+        private boolean navettePresent;
+
 
     public Attraction() {
-        this.dureeAttenteQuai = 200;
         this.nombreDePlaceDispoNavette = 5;
-        this.parti = false;
+        this.navettePresent = false;
     }
 
     public synchronized void traintementClient() throws InterruptedException {
 
-        while (nombreDePlaceDispoNavette== 0 & parti){
+        while (nombreDePlaceDispoNavette== 0 & navettePresent){
 
             System.out.println("j'attend la Navette ou il y a plus de place");
             wait();
         }
 
-        System.out.println("je suis dans la Navette");
-        nombreDePlaceDispoNavette--;
-        System.out.println("test"+ nombreDePlaceDispoNavette);
-
-    }
-
-    public synchronized void TraitementNavette(){
-
-        nombreDePlaceDispoNavette = 5;
-        parti = false;
         notifyAll();
+        System.out.println("Client: Je suis dans la Navette");
+        nombreDePlaceDispoNavette--;
 
-        System.out.println("Navette sur le quai avec un nombre de places limité");
-
-        try {
-            Thread.sleep(dureeAttenteQuai);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        parti = true;
-
-        System.out.println("Navette partie");
     }
+
+    public synchronized void GareNavette() throws InterruptedException {
+
+        while (navettePresent){
+
+            System.out.println("Navette2: attente du depart de la navette présente");
+            wait();
+        }
+
+        System.out.println("Navette présente");
+
+        navettePresent = true;
+        nombreDePlaceDispoNavette = 5;
+        notifyAll();
+    }
+
+    public synchronized void departNavette(){
+
+        System.out.println("Navette à quai parti");
+        navettePresent = false;
+        notifyAll();
+    }
+
 }
